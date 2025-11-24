@@ -1,5 +1,5 @@
 import { catchAsyncError } from "../middleware/catchAsyncError.js";
-import User from "../models/user.model.js";
+import {User} from "../models/user.model.js";
 import { generateToken } from "../utils/jwtToken.js";
 import bcrypt from "bcryptjs";
 import {v2 as cloudinary} from "cloudinary";
@@ -85,7 +85,7 @@ export const signout = catchAsyncError(async (req, res, next) => {
         expires: new Date(0), 
         httpOnly: true,
         sameSite: "strict",
-        secure: process.env.NODE_ENV !== "development",
+        secure: process.env.NODE_ENV !== "development" ? true:false,
     });
 
     res.status(200).json({
@@ -94,7 +94,7 @@ export const signout = catchAsyncError(async (req, res, next) => {
     });
 });
 
-export const getuser = catchAsyncError(async (req, res, next) => {
+export const getUser = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user._id);
     if (!user) {
         return res.status(404).json({
