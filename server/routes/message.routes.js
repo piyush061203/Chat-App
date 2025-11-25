@@ -1,11 +1,13 @@
 import express from "express";
-import { sendMessage, allMessages, getAllUsers } from "../controllers/message.controller.js";
-import { isAuthenticated } from "../middlewares/auth.middleware.js";
+import { getAllUsers,getMessages,sendMessage } from "../controllers/message.controller.js";
+import { isAuthenticated } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
 router.get("/users", isAuthenticated, getAllUsers);
-router.post("/message", isAuthenticated, sendMessage);
-router.get("/messages/:chatId", isAuthenticated, allMessages);
+router.get("/:id", isAuthenticated, getMessages);
+router.post("/send/:id", isAuthenticated, sendMessage);
+
+
 
 export default router;

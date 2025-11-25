@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import cors from 'cors';
 import databaseConnect from './database/database.js';
 import userRouter from './routes/user.routes.js';
+import messageRouter from './routes/message.routes.js';
 
 
 config({ path: './config/config.env' });
@@ -27,6 +28,7 @@ app.use(fileUpload({
 }));
 
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/message', messageRouter);
 
 
 
